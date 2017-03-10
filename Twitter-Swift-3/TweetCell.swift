@@ -33,8 +33,14 @@ class TweetCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        var tap = UITapGestureRecognizer(target: self, action: Selector("onTap"))
+        self.avatarView.addGestureRecognizer(tap)
     }
 
+    func onTap() {
+        delegate?.onProfile(tweet: tweet!)
+    }
+    
     @IBAction func onReply(_ sender: Any) {
         
     }

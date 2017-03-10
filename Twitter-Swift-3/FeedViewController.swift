@@ -12,8 +12,13 @@ import SDWebImage
 
 protocol FeedViewControllerDelegate {
     func reload()
+    func onProfile(tweet: Tweet)
 }
 class FeedViewController: UITableViewController, FeedViewControllerDelegate {
+    internal func onProfile(tweet: Tweet) {
+        self.performSegue(withIdentifier: "feedToProfileSegue", sender: tweet)
+    }
+
     var tweets: [Tweet] = []
     var isMoreDataLoading = false
     var loadingMoreView:InfiniteScrollActivityView?
@@ -212,8 +217,10 @@ class FeedViewController: UITableViewController, FeedViewControllerDelegate {
         } else if segue.identifier == "feedtoProfileSegue" {
             let user = sender as! User
             let vc = segue.destination as! ProfileViewController
-            vc.user = user
+            let tweet = sender as! Tweet
+            vc.user = tweet.user
         }
+        
 
     }
     
